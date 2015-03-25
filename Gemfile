@@ -4,5 +4,5 @@ source 'https://rubygems.org'
 gem 'rake', '~> 10.4.2'
 gem 'rack', '~> 1.6.0'
 
-# DB Gems
+# DB
 gem 'cassandra', '~> 0.23.0'
