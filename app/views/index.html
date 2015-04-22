@@ -4,12 +4,68 @@
   <script src="/js/jquery-2.1.3.js" type="text/javascript" charset="utf-8" async defer></script>
   <script src="/js/react-0.13.2.js" type="text/javascript" charset="utf-8" async defer></script>
   <script src="/js/web-tree.js" type="text/javascript" charset="utf-8"></script>
-  <script type="text/javascript">
-    var webTree = WebTree('native');
-    webTree.render();
-  </script>
   <title>Web Tree</title>
 </head>
 <body>
+<div id="web-tree">
+</div>
+<script type="text/javascript">
+  var dummyData = [
+    {
+      name: 'Home Page',
+      url:  'localhost:9292/',
+      children: [
+        {
+          name: 'About',
+          url: 'localhost:9292/about'
+        },
+        {
+          name: 'About',
+          url: 'localhost:9292/about'
+        },
+        {
+          name: 'About',
+          url: 'localhost:9292/about',
+          children: [
+        {
+          name: 'About',
+          url: 'localhost:9292/about'
+        },
+        {
+          name: 'About',
+          url: 'localhost:9292/about'
+        },
+        {
+          name: 'About',
+          url: 'localhost:9292/about'
+        }
+      ],
+        }
+      ]
+    },
+    {
+      name: 'Home Page',
+      url:  'localhost:9292/',
+      children: [
+        {
+          name: 'About',
+          url: 'localhost:9292/about'
+        },
+        {
+          name: 'About',
+          url: 'localhost:9292/about'
+        },
+        {
+          name: 'About',
+          url: 'localhost:9292/about'
+        }
+      ],
+    }
+  ]
+
+  var webTree = WebTree('native');
+  var node = document.getElementById('web-tree');
+  webTree.render(node, dummyData);
+</script>
 </body>
 </html>

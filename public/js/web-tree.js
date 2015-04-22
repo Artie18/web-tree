@@ -33,7 +33,26 @@ var WebTreeNative = function (opts) {
   };
 
   this.render = function (node, data) {
-    throw "TODO: Implement";
-    // TODO: Implement
+    // Clean vars to clone node from
+    var ul = document.createElement('ul');
+    var li = document.createElement('li');
+
+    var mainUl = ul.cloneNode(true);
+
+    var buildTreePart = function (node, data) {
+      var _ul = ul.cloneNode(true);
+      for(var i = 0; i < data.length; i++) {
+        var _li = li.cloneNode(true);
+        _li.textContent = data[i].name;
+        if(Array.isArray(data[i].children)) {
+          _li = buildTreePart(_li, data[i].children);
+        }
+        _ul.appendChild(_li);
+      }
+      node.appendChild(_ul);
+      return node;
+    }
+
+    buildTreePart(node, data);
   };
 }
