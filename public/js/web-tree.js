@@ -59,6 +59,7 @@ var WebTreeNative = function (opts) {
   }
 
   // This function is renders basic DOM;
+  // TODO: Make it simple
   this.render = function (node, data) {
     // Clean vars to clone node from
     var ul = document.createElement('ul');
@@ -84,12 +85,14 @@ var WebTreeNative = function (opts) {
       node.appendChild(_ul);
       return node;
     }
+    // Build main project folder in view
     var _ul = ul.cloneNode(true),
         _li = li.cloneNode(true);
     _li.ondragover = self.onDragOver;
     _li.ondrop = self.onDrop;
     _li.textContent = 'Project 1';
     node.appendChild(_ul.appendChild(_li));
+    // Start recursive rendering
     buildTreePart(_li, data);
   };
 
