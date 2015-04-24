@@ -1,5 +1,7 @@
 require 'sinatra'
-# require './views'
+require_relative './help/api_info'
+
+Dir['./bl/models/*.rb'].each { |f| require "#{f}" }
 
 class Server < Sinatra::Base
   # Configs
@@ -9,6 +11,14 @@ class Server < Sinatra::Base
   get '/' do
     # apparently send_file not working, figure out why exactly
     File.read('app/views/index.html')
+  end
+
+  get '/api/version' do
+    "API Version: #{ApiInfo::VERSION}"
+  end
+
+  get '/api/sitemaps/all' do
+    Sitemap.all
   end
 
 end
