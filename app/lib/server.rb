@@ -1,7 +1,7 @@
 require 'sinatra'
 require_relative './help/api_info'
 
-Dir['./bl/models/*.rb'].each { |f| require "#{f}" }
+Dir[File.dirname(__FILE__) + '/bl/models/*.rb'].each { |f| require "#{f}" }
 
 class Server < Sinatra::Base
   # Configs
