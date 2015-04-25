@@ -8,6 +8,11 @@ class Server < Sinatra::Base
   set :root, File.dirname(__FILE__ + '../../')
   set :public_folder, 'public'
 
+  configure :production do
+    require 'newrelic_rpm'
+  end
+
+
   get '/' do
     # apparently send_file not working, figure out why exactly
     File.read('app/views/index.html')

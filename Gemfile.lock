@@ -7,6 +7,7 @@ GEM
       simple_uuid (~> 0.3)
       thrift_client (~> 0.7, < 0.9)
     json (1.8.2)
+    newrelic_rpm (3.11.2.286)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
@@ -26,6 +27,7 @@ PLATFORMS
 
 DEPENDENCIES
   cassandra (~> 0.23.0)
+  newrelic_rpm (~> 3.11.2.286)
   rack (~> 1.6.0)
   rake (~> 10.4.2)
   sinatra
