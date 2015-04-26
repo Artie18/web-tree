@@ -6,4 +6,4 @@ gem 'rack', '~> 1.6.0'
 gem 'sinatra'
 
 # DB
-gem 'cassandra', '~> 0.23.0'
+gem 'mongo', '~> 2.0'
