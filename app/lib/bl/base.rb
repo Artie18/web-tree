@@ -1,12 +1,16 @@
 class Base
-  IMPLEMENT_ERROR = 'TODO: IMPLEMENT IT'
+  IMPLEMENT_ERROR  = 'TODO: IMPLEMENT IT'
+  BASE_CLASS_ERROR = 'CAN NOT USE BASE CLASS'
 
   def self.all
-    self.class
+    raise IMPLEMENT_ERROR
   end
 
   def self.create(opts = {})
-    raise IMPLEMENT_ERROR
+    opts.each do |k, v|
+      validate_key!(k,v)
+    end
+    repository.new.create(opts)
   end
 
   def self.find(id = nil)
@@ -14,7 +18,7 @@ class Base
   end
 
   def self.first
-    raise IMPLEMENT_ERROR
+    repository.new.first
   end
 
   def self.last
@@ -30,5 +34,19 @@ class Base
     raise IMPLEMENT_ERROR
   end
 
+  protected
+
+  def self.validate_key!(key, value)
+    return true if value.is_a? keys[key]
+    raise "Key #{key} is supposed to be type #{keys[key]} (you have #{value})"
+  end
+
+  def self.keys
+    raise BASE_CLASS_ERROR
+  end
+
+  def self.repository
+    raise BASE_CLASS_ERROR
+  end
 
 end
