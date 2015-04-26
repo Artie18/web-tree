@@ -11,14 +11,12 @@ There is no Production version yet.
 
 ### Technologies Used: 
 - **Rack** as web framework
-- **Cassandra** as db
+- **MongoDB** as db
 
 ## Install (*on Mac OS X*): 
 
-#### Install Cassandra (*with Homebrew*): 
-  - Install cassandra from brew: `brew install cassandra`
-  - Install python (*if needed*): `brew install python`
-  - Install python packeg for CQL: `pip install cql`
+#### Install MongoDB (*with Homebrew*): 
+  Try [here](http://docs.mongodb.org/manual/installation/)
 
 #### Install RVM (*if needed*): 
   You can just go [here](https://rvm.io/rvm/install)
@@ -29,7 +27,7 @@ There is no Production version yet.
   - Execute `bundle install` to install all gems 
 
 ## Run Application: 
-  - Start Cassandra with `launchctl load /usr/local/opt/cassandra/homebrew.mxcl.cassandra.plist`
+  - Start MongoDB if not already started with `sudo mongod`
   - Start the app `rackup` (*it will start the app on port 9292*)
   
 
