@@ -4,6 +4,7 @@ GEM
     bson (3.0.2)
     mongo (2.0.2)
       bson (~> 3.0)
+    newrelic_rpm (3.11.2.286)
     rack (1.6.0)
     rack-protection (1.5.3)
       rack
@@ -19,6 +20,7 @@ PLATFORMS
 
 DEPENDENCIES
   mongo (~> 2.0)
+  newrelic_rpm (~> 3.11.2.286)
   rack (~> 1.6.0)
   rake (~> 10.4.2)
   sinatra
