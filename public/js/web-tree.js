@@ -32,6 +32,17 @@ var WebTreeNative = function (opts) {
     this.fetchDomData();
   }
 
+  this.isAChild = function (child, parent) {
+    var node = child.parentNode;
+    while(node != null) {
+      if(node == parent) {
+        return true;
+      }
+      node = node.parentNode;
+    }
+    return false;
+  }
+
   this.fetchDomData = function () {
     throw "TODO: Implement";
     // TODO: Implement
@@ -49,6 +60,9 @@ var WebTreeNative = function (opts) {
     e.preventDefault();
     var el = e.toElement;
     var elToDrop = document.getElementById(e.dataTransfer.getData('id'));
+    if(self.isAChild(el, elToDrop)) {
+      return;
+    }
     if(el.className == "parent") {
       el.firstElementChild.appendChild(elToDrop);
     } else {
