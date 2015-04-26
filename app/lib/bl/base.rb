@@ -2,7 +2,7 @@ class Base
   IMPLEMENT_ERROR = 'TODO: IMPLEMENT IT'
 
   def self.all
-    raise IMPLEMENT_ERROR
+    self.class
   end
 
   def self.create(opts = {})
