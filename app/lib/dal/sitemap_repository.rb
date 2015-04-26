@@ -1,0 +1,3 @@
+class SiteMapRepository
+
+end
