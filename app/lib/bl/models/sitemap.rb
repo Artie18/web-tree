@@ -5,6 +5,7 @@ class Sitemap < Base
 
   KEYS = {
     name: String,
+    ## TODO: IMPLEMENT EMBEDED DOCUMENTS 
     pages: Array
   }
 

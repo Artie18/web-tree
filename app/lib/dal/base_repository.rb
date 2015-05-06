@@ -1,6 +1,7 @@
 require 'mongo'
 
 class BaseRepository
+
   IMPLEMENT_ERROR = 'TODO: IMPLEMENT IT'
 
   attr_reader :mongo_client, :collection_name, :collection
@@ -18,7 +19,7 @@ class BaseRepository
   end
 
   def all
-    @collection.find
+    @collection.find({}).to_a
   end
 
   def first

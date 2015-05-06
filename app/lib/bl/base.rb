@@ -1,9 +1,11 @@
 class Base
-  IMPLEMENT_ERROR  = 'TODO: IMPLEMENT IT'
-  BASE_CLASS_ERROR = 'CAN NOT USE BASE CLASS'
+  IMPLEMENT_ERROR       = 'TODO: IMPLEMENT IT'
+  BASE_CLASS_ERROR      = 'CAN NOT USE BASE CLASS'
+  TYPE_IS_NOT_SUPPORTED = 'THIS TYPE IS NOT SUPPORTED'
 
-  def self.all
-    raise IMPLEMENT_ERROR
+  def self.all(json = false)
+    res = repository.new.all
+    json ? to_json(res) : res
   end
 
   def self.create(opts = {})
@@ -35,6 +37,21 @@ class Base
   end
 
   protected
+
+  def self.to_json(docs)
+    if docs.is_a? Array
+      docs.map { |d| doc_to_json(d) }
+    elsif docs.is_a? Hash
+      doc_to_json(doc)
+    else
+      throw TYPE_IS_NOT_SUPPORTED
+    end
+  end
+
+  def self.doc_to_json(doc)
+    doc[:_id] = doc[:_id].to_s
+    doc
+  end
 
   def self.validate_key!(key, value)
     return true if value.is_a? keys[key]

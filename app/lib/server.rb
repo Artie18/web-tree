@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'json'
 require_relative './help/api_info'
 
 Dir[File.dirname(__FILE__) + '/bl/models/*.rb'].each { |f| require "#{f}" }
@@ -23,7 +24,8 @@ class Server < Sinatra::Base
   end
 
   get '/api/sitemaps/all' do
-    Sitemap.all
+    content_type :json
+    Sitemap.all(true).to_json
   end
 
 end
