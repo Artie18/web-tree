@@ -5,19 +5,19 @@ namespace :mongo do
     Sitemap.create(name: 'site_map',
     pages: [
       {
-        id: '1234567',
+        _id: '1234567',
         name: 'Home Page',
         url:  'localhost:9292/',
         children: [
           {
-            id: '123456',
+            _id: '123456',
             name: 'About',
             url: 'localhost:9292/about'
           },
         ],
       },
       {
-        id: '123456jgroewf7',
+        _id: '123456jgroewf7',
         name: 'Some Page',
         url:  'localhost:9292/'
       }
