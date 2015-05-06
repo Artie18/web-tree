@@ -28,7 +28,7 @@
           e    = _nodes[i];
       if(!e.getAttribute('data-id')) {
         if(e.children.length > 0) {
-          var result = append(e.children)
+          var result = append(e.children);
           if(Array.isArray(result)) {
             data = data.concat(result);
           } else {
@@ -37,7 +37,7 @@
         }
       } else {
         elem.name = e.getAttribute('data-name');
-        elem.id   = e.getAttribute('data-id');
+        elem['_id']   = e.getAttribute('data-id');
         if(e.children.length > 0) {
           elem.children = append(e.children);
         }
@@ -50,8 +50,8 @@
   var buildJsonData = function (_element) {
     var data = {};
     var mainObject = _element.children[0];
-    data.name = mainObject.getAttribute('data-name')
-    data.id   = mainObject.getAttribute('data-id')
+    data.name = mainObject.getAttribute('data-name');
+    data['_id']   = mainObject.getAttribute('data-id');
     if(mainObject.children.length > 0) {
       data.pages = append(mainObject.children);
     }
@@ -61,6 +61,16 @@
   $("#web-tree-update-btn").on('click', function (btn) {
     var json = buildJsonData(node);
     console.log(json);
+    $.ajax({
+      type: "POST",
+      url: "/api/sitemaps/update",
+      processData: false,
+      contentType: 'application/json',
+      data: JSON.stringify(json),
+      success: function(r) {
+        console.log(r);
+      }
+    });
   })
 </script>
 </body>
