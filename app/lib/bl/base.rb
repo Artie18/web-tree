@@ -19,8 +19,9 @@ class Base
     raise IMPLEMENT_ERROR
   end
 
-  def self.first
-    repository.new.first
+  def self.first(json = false)
+    res = repository.new.first
+    json ? to_json(res) : res
   end
 
   def self.last
@@ -42,7 +43,7 @@ class Base
     if docs.is_a? Array
       docs.map { |d| doc_to_json(d) }
     elsif docs.is_a? Hash
-      doc_to_json(doc)
+      doc_to_json(docs)
     else
       throw TYPE_IS_NOT_SUPPORTED
     end

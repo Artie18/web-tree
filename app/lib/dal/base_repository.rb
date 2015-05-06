@@ -23,7 +23,7 @@ class BaseRepository
   end
 
   def first
-    @collection.first
+    @collection.find({}).to_a.first
   end
 
 end

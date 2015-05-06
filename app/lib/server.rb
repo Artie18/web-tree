@@ -28,4 +28,8 @@ class Server < Sinatra::Base
     Sitemap.all(true).to_json
   end
 
+  get '/api/sitemaps/first' do
+    content_type :json
+    Sitemap.first(true).to_json
+  end
 end
