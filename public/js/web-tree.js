@@ -17,19 +17,29 @@ var WebTreeNative = function (opts) {
   // Define self to use inside of functions
   self = this;
   // URL to fetch data from
-  this.fetchBackendUrl = opts.postUrl || opts.url;
+  self.fetchBackendUrl = opts.fetchUrl || opts.url;
   // URL to post data to
-  this.postBackendUrl  = opts.fetchUrl || opts.url;
+  self.postBackendUrl  = opts.postUrl || opts.url;
   // If we need to build data from DOM
   // Always false for now
-  this.buildDataFromDom = false; //opts.fromDom || false;
+  self.buildDataFromDom = false; //opts.fromDom || false;
   // If We are building from DOM, we need Node from wich to choose
-  this.nodeWhereDomDataIs = opts.dataDomElement;
+  self.nodeWhereDomDataIs = opts.dataDomElement;
   // If we need to listen for events to drag and drop our site map elements
-  this.listen = opts.listen || true;
+  self.listen = opts.listen || true;
 
-  if(this.buildDataFromDom) {
-    this.fetchDomData();
+  // TODO: Remove this method from here! We don't need it in the library
+  self.fetchDataFromServer = function () {
+    var xhr = new XMLHttpRequest();
+
+    xhr.open('GET', self.fetchBackendUrl, false);
+    xhr.send();
+
+    if (xhr.status != 200) {
+      throw xhr.status + ': ' + xhr.statusText;
+    } else {
+      self.data = JSON.parse(xhr.responseText);
+    }
   }
 
   this.isAChild = function (child, parent) {
@@ -75,6 +85,8 @@ var WebTreeNative = function (opts) {
   // This function is renders basic DOM;
   // TODO: Make it simple
   this.render = function (node, data) {
+    if(typeof data === 'undefined') { data = self.data }
+
     // Clean vars to clone node from
     var ul = document.createElement('ul');
     var li = document.createElement('li');
@@ -85,7 +97,7 @@ var WebTreeNative = function (opts) {
       for(var i = 0; i < data.length; i++) {
         var _li = li.cloneNode(true);
         _li.draggable = true;
-        _li.id = data[i].id;
+        _li.id = data[i].id || data[i]['_id'];
         _li.ondragstart = self.onDragStart;
         _li.ondragover = self.onDragOver;
         _li.ondrop = self.onDrop;
@@ -104,11 +116,20 @@ var WebTreeNative = function (opts) {
         _li = li.cloneNode(true);
     _li.ondragover = self.onDragOver;
     _li.ondrop = self.onDrop;
-    _li.textContent = 'Project 1';
+    _li.textContent = data.name;
     node.appendChild(_ul.appendChild(_li));
     // Start recursive rendering
-    buildTreePart(_li, data);
+    buildTreePart(_li, data.pages);
   };
+
+  if(self.buildDataFromDom) {
+    self.fetchDomData();
+  }
+
+  if(self.fetchBackendUrl) {
+    self.fetchDataFromServer();
+  }
+
 
 
 }

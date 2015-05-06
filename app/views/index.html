@@ -11,29 +11,12 @@
 <div id="web-tree">
 </div>
 <script type="text/javascript">
-  var dummyData = [
-    {
-      id: '1234567',
-      name: 'Home Page',
-      url:  'localhost:9292/',
-      children: [
-        {
-          id: '123456',
-          name: 'About',
-          url: 'localhost:9292/about'
-        },
-      ],
-    },
-    {
-      id: '123456jgroewf7',
-      name: 'Some Page',
-      url:  'localhost:9292/'
-    }
-  ]
 
-  var webTree = WebTree('native');
+  var webTree = WebTree('native', {
+    fetchUrl: '/api/sitemaps/first'
+  });
   var node = document.getElementById('web-tree');
-  webTree.render(node, dummyData);
+  webTree.render(node);
 </script>
 </body>
 </html>
