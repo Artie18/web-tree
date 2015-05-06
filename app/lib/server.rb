@@ -32,4 +32,11 @@ class Server < Sinatra::Base
     content_type :json
     Sitemap.first(true).to_json
   end
+
+  post '/api/sitemaps/update' do
+    content_type :json
+    body = JSON.parse(request.body.read, symbolize_names: true)
+    Sitemap.find_and_update(body[:_id], body)
+    {saved: true}.to_s
+  end
 end

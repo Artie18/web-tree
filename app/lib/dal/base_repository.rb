@@ -13,9 +13,17 @@ class BaseRepository
     @collection        = @mongo_client[@collection_name]
   end
 
+  def find(id)
+    @collection.find(_id: BSON::ObjectId.from_string(id)).to_a
+  end
 
   def create(opts = {})
    @collection.insert_one(opts)
+  end
+
+  def update(id, params)
+    @collection.find(_id: BSON::ObjectId.from_string(id))
+               .find_one_and_replace(params, return_document: :after).to_a
   end
 
   def all

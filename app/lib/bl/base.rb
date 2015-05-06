@@ -2,6 +2,7 @@ class Base
   IMPLEMENT_ERROR       = 'TODO: IMPLEMENT IT'
   BASE_CLASS_ERROR      = 'CAN NOT USE BASE CLASS'
   TYPE_IS_NOT_SUPPORTED = 'THIS TYPE IS NOT SUPPORTED'
+  NO_OBJECT             = 'NO OBJECT WITH YOUR PARAMETRS'
 
   def self.all(json = false)
     res = repository.new.all
@@ -13,6 +14,19 @@ class Base
       validate_key!(k,v)
     end
     repository.new.create(opts)
+  end
+
+  def self.find_and_update(id = nil, params = {})
+    rep = repository.new
+    if !id.nil? && rep.find(id).length > 0
+      params.delete(:_id)
+      params.each do |k, v|
+        validate_key!(k,v)
+      end
+      rep.update(id, params)
+    else
+      raise NO_OBJECT
+    end
   end
 
   def self.find(id = nil)
