@@ -73,6 +73,7 @@ var WebTreeNative = function (opts) {
     if(self.isAChild(el, elToDrop)) {
       return;
     }
+    
     if(el.className == "parent") {
       el.firstElementChild.appendChild(elToDrop);
     } else {
@@ -102,6 +103,8 @@ var WebTreeNative = function (opts) {
         _li.ondragover = self.onDragOver;
         _li.ondrop = self.onDrop;
         _li.textContent = data[i].name;
+        _li.setAttribute('data-name', data[i].name);
+        _li.setAttribute('data-id', (data[i].id || data[i]['_id']));
         if(Array.isArray(data[i].children)) {
           _li.className = "parent";
           _li = buildTreePart(_li, data[i].children);
@@ -117,6 +120,8 @@ var WebTreeNative = function (opts) {
     _li.ondragover = self.onDragOver;
     _li.ondrop = self.onDrop;
     _li.textContent = data.name;
+    _li.setAttribute('data-name', data.name);
+    _li.setAttribute('data-id', (data.id || data['_id']));
     node.appendChild(_ul.appendChild(_li));
     // Start recursive rendering
     buildTreePart(_li, data.pages);
