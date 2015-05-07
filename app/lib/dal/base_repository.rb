@@ -8,9 +8,10 @@ class BaseRepository
 
   def initialize
     # TODO: Add Config
-    @mongo_client      = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'webtree')
-    @collection_name   = self.class.to_s.downcase.gsub('repository','').to_sym
-    @collection        = @mongo_client[@collection_name]
+    mongo_connect_string = ENV['MONGO_CONNECT_STRING'] || 'mongodb://127.0.0.1:27017/webtree'
+    @mongo_client        = Mongo::Client.new(mongo_connect_string)
+    @collection_name     = self.class.to_s.downcase.gsub('repository','').to_sym
+    @collection          = @mongo_client[@collection_name]
   end
 
   def find(id)
