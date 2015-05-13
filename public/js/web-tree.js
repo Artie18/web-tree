@@ -17,11 +17,6 @@ var WebTreeNative = function (opts) {
   // Define self to use inside of functions
   var self = this;
   
-  // If we need to build data from DOM
-  // Always false for now
-  self.buildDataFromDom = false; //opts.fromDom || false;
-  // If We are building from DOM, we need Node from wich to choose
-  self.nodeWhereDomDataIs = opts.dataDomElement;
   // If we need to listen for events to drag and drop our site map elements
   self.listen = opts.listen || true;
 
@@ -155,9 +150,5 @@ var WebTreeNative = function (opts) {
     // Start recursive sitemap rendering
     buildTreePart(_li, data.pages);
   };
-
-  if(self.buildDataFromDom) {
-    self.fetchDomData();
-  }
 
 }
