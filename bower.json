@@ -1,0 +1,21 @@
+{
+  "name": "website-tree",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Artie18/web-tree",
+  "authors": [
+    "Artyom Fedenko a.fedenko@blankpagelabs.com"
+  ],
+  "description": "Open Source Example app to build sitemaps",
+  "keywords": [
+    "sitemap"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
