@@ -22,7 +22,8 @@ var DataFetcher = function(opts) {
 
     // No callback for now
     xhr.open('POST', url, false);
-    xhr.send(_data);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(_data));
 
     if (xhr.status != 200) {
       throw xhr.status + ': ' + xhr.statusText;
