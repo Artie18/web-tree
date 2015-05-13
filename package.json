@@ -1,0 +1,22 @@
+{
+  "name": "web-tree",
+  "description": "Open Source Example app to build sitemaps ",
+  "version": "0.0.1",
+  "repository": {
+        "type": "git",
+        "url": "https://github.com/Artie18/web-tree"
+  },
+  "author": {
+    "name": "Artyom Fedenko",
+    "email": "a.fedenko@blankpagelabs.com"
+  },
+  "contributors": [
+    {
+      "name": "Artyom Fedenko",
+      "email": "a.fedenko@blankpagelabs.com"
+    }
+  ],
+  "dependencies": {
+    "bower": "1.4.1",
+  }
+}
