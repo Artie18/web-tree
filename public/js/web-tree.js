@@ -30,6 +30,7 @@ var WebTreeNative = function (opts) {
 
   // TODO: Remove this method from here! We don't need it in the library
   self.fetchDataFromServer = function () {
+    // Change it to async
     var xhr = new XMLHttpRequest();
 
     xhr.open('GET', self.fetchBackendUrl, false);
@@ -66,6 +67,10 @@ var WebTreeNative = function (opts) {
     e.preventDefault();
   }
 
+  this.onDblClick = function (e) {
+    throw "TODO: Implement";
+  }
+
   this.onDrop = function (e) {
     e.preventDefault();
     var el = e.toElement;
@@ -73,7 +78,7 @@ var WebTreeNative = function (opts) {
     if(self.isAChild(el, elToDrop)) {
       return;
     }
-    
+
     if(el.className == "parent") {
       el.firstElementChild.appendChild(elToDrop);
     } else {
@@ -89,41 +94,66 @@ var WebTreeNative = function (opts) {
     if(typeof data === 'undefined') { data = self.data }
 
     // Clean vars to clone node from
-    var ul = document.createElement('ul');
-    var li = document.createElement('li');
+    var ul   = document.createElement('ul');
+    var li   = document.createElement('li');
+    var span = document.createElement('span');
 
     // Recursive function to build tree
     var buildTreePart = function (node, data) {
       var _ul = ul.cloneNode(true);
       for(var i = 0; i < data.length; i++) {
-        var _li = li.cloneNode(true);
-        _li.draggable = true;
-        _li.id = data[i].id || data[i]['_id'];
-        _li.ondragstart = self.onDragStart;
-        _li.ondragover = self.onDragOver;
-        _li.ondrop = self.onDrop;
-        _li.textContent = data[i].name;
+
+        // Create needed nodes
+        var _li   = li.cloneNode(true),
+            _span = span.cloneNode(true);
+
+        // Add callbacks to Li element
+        _li.ondragstart   = self.onDragStart;
+        _li.ondragover    = self.onDragOver;
+        _li.ondrop        = self.onDrop;
+        _li.ondblclick    = self.onDblClick;
+
+        // Add attributes to Li element
+        _span.textContent = data[i].name;
+        _span.value       = data[i].name;
+        _li.draggable     = true;
+        _li.id            = data[i].id || data[i]['_id'];
+        _li.appendChild(_span);
         _li.setAttribute('data-name', data[i].name);
         _li.setAttribute('data-id', (data[i].id || data[i]['_id']));
+
+        // Check if we node has child pages
         if(Array.isArray(data[i].children)) {
-          _li.className = "parent";
+            _li.className = "parent";
           _li = buildTreePart(_li, data[i].children);
         }
+
         _ul.appendChild(_li);
       }
       node.appendChild(_ul);
+
       return node;
     }
+
     // Build main project folder in view
-    var _ul = ul.cloneNode(true),
-        _li = li.cloneNode(true);
+    var _ul   = ul.cloneNode(true),
+        _li   = li.cloneNode(true);
+        _span = span.cloneNode(true);
+
+    // Initialize Main Node
+
+    // Set callbacks on main node
     _li.ondragover = self.onDragOver;
     _li.ondrop = self.onDrop;
-    _li.textContent = data.name;
+
+    // Add atributes to a main node
+    _span.textContent = data.name;
+    _li.appendChild(_span);
     _li.setAttribute('data-name', data.name);
     _li.setAttribute('data-id', (data.id || data['_id']));
     node.appendChild(_ul.appendChild(_li));
-    // Start recursive rendering
+
+    // Start recursive sitemap rendering
     buildTreePart(_li, data.pages);
   };
 
