@@ -183,6 +183,4 @@ var WebTreeNative = function (opts) {
     self.fetchDataFromServer();
   }
 
-
-
 }
