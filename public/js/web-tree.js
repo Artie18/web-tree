@@ -16,10 +16,7 @@ var WebTree = function(type, opts) {
 var WebTreeNative = function (opts) {
   // Define self to use inside of functions
   var self = this;
-  // URL to fetch data from
-  self.fetchBackendUrl = opts.fetchUrl || opts.url;
-  // URL to post data to
-  self.postBackendUrl  = opts.postUrl || opts.url;
+  
   // If we need to build data from DOM
   // Always false for now
   self.buildDataFromDom = false; //opts.fromDom || false;
@@ -27,21 +24,6 @@ var WebTreeNative = function (opts) {
   self.nodeWhereDomDataIs = opts.dataDomElement;
   // If we need to listen for events to drag and drop our site map elements
   self.listen = opts.listen || true;
-
-  // TODO: Remove this method from here! We don't need it in the library
-  self.fetchDataFromServer = function () {
-    // No Async
-    var xhr = new XMLHttpRequest();
-
-    xhr.open('GET', self.fetchBackendUrl, false);
-    xhr.send();
-
-    if (xhr.status != 200) {
-      throw xhr.status + ': ' + xhr.statusText;
-    } else {
-      self.data = JSON.parse(xhr.responseText);
-    }
-  }
 
   this.isAChild = function (child, parent) {
     var node = child.parentNode;
@@ -176,10 +158,6 @@ var WebTreeNative = function (opts) {
 
   if(self.buildDataFromDom) {
     self.fetchDomData();
-  }
-
-  if(self.fetchBackendUrl) {
-    self.fetchDataFromServer();
   }
 
 }
