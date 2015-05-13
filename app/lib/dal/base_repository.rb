@@ -24,7 +24,8 @@ class BaseRepository
 
   def update(id, params)
     @collection.find(_id: BSON::ObjectId.from_string(id))
-               .find_one_and_replace(params, return_document: :after).to_a
+               .find_one_and_replace(params, return_document: :after)
+    true
   end
 
   def all

@@ -25,7 +25,7 @@ class Base
       end
       rep.update(id, params)
     else
-      raise NO_OBJECT
+      false
     end
   end
 
