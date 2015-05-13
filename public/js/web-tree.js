@@ -67,8 +67,26 @@ var WebTreeNative = function (opts) {
     e.preventDefault();
   }
 
-  this.onDblClick = function (e) {
-    throw "TODO: Implement";
+  this.onInputKeyPress = function (e) {
+    if(e.keyCode != 13) {
+      return;
+    }
+
+    var _span = document.createElement('span'),
+        _input = e.currentTarget;
+
+    _span.textContent = _input.value;
+    _input.parentElement.setAttribute('data-name', _input.value);
+    _input.parentElement.replaceChild(_span, _input);
+  }
+
+  this.onSpanDblClick = function (e) {
+    var _input = document.createElement('input'),
+        _elem  = e.currentTarget;
+
+    _input.value = _elem.textContent;
+    _input.onkeypress = self.onInputKeyPress;
+    _elem.parentElement.replaceChild(_input, _elem);
   }
 
   this.onDrop = function (e) {
@@ -111,11 +129,11 @@ var WebTreeNative = function (opts) {
         _li.ondragstart   = self.onDragStart;
         _li.ondragover    = self.onDragOver;
         _li.ondrop        = self.onDrop;
-        _li.ondblclick    = self.onDblClick;
 
         // Add attributes to Li element
         _span.textContent = data[i].name;
         _span.value       = data[i].name;
+        _span.ondblclick    = self.onSpanDblClick;
         _li.draggable     = true;
         _li.id            = data[i].id || data[i]['_id'];
         _li.appendChild(_span);
