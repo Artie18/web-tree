@@ -1,6 +1,6 @@
 var DataFetcher = function(opts) {
   // Make sure we have it inside functions
-  self = this;
+  var self = this;
 
   self.getUrl  = opts.getUrl || '';
   self.postUrl = opts.postUrl || '';

@@ -15,7 +15,7 @@ var WebTree = function(type, opts) {
 
 var WebTreeNative = function (opts) {
   // Define self to use inside of functions
-  self = this;
+  var self = this;
   // URL to fetch data from
   self.fetchBackendUrl = opts.fetchUrl || opts.url;
   // URL to post data to
@@ -30,7 +30,7 @@ var WebTreeNative = function (opts) {
 
   // TODO: Remove this method from here! We don't need it in the library
   self.fetchDataFromServer = function () {
-    // Change it to async
+    // No Async
     var xhr = new XMLHttpRequest();
 
     xhr.open('GET', self.fetchBackendUrl, false);
@@ -163,7 +163,6 @@ var WebTreeNative = function (opts) {
     // Set callbacks on main node
     _li.ondragover = self.onDragOver;
     _li.ondrop = self.onDrop;
-
     // Add atributes to a main node
     _span.textContent = data.name;
     _li.appendChild(_span);
