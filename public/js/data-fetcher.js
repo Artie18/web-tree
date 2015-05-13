@@ -30,7 +30,6 @@ var DataFetcher = function(opts) {
     } else {
       return JSON.parse(xhr.responseText);
     }
-
   }
 
   /**
@@ -40,7 +39,7 @@ var DataFetcher = function(opts) {
    * @returns {json} data
    */
   self.get = function (_url) {
-    var url = _url || self.postUrl;
+    var url = _url || self.getUrl;
     if(!url) {
       throw 'No url specified!'
     }

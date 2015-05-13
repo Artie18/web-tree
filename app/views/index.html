@@ -14,17 +14,17 @@
 <button id="web-tree-update-btn">Update</button>
 <script type="text/javascript">
 
-  var webTree = new WebTree('native', {
-    fetchUrl: '/api/sitemaps/first'
-  });
+  var webTree = new WebTree('native');
 
   var dataFetcher = new DataFetcher({
     getUrl: '/api/sitemaps/first',
     postUrl: '/api/sitemaps/update'
   });
 
+  var data = dataFetcher.get();
+
   var node = document.getElementById('web-tree');
-  webTree.render(node);
+  webTree.render(node, data);
 
   // Recursive function to append elements to provide full json
   // TODO: Make separate js file
